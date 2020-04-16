@@ -82,9 +82,9 @@ NewLine  [\n]
 
 .              {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
 
-{LETTER}({LETTER}|{DIGIT}*+)?"_"              {printf("Error at line %d, column %d: identifier \"%s\"\n cannot end with an underscore", currLine, currPos, yytext); exit(1);}
+{LETTER}({LETTER}|{DIGIT}|"_")*"_"              {printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n", currLine, currPos, yytext); exit(1);}
 
-({DIGIT}({LETTER}|{DIGIT}|"_")*({LETTER}{DIGIT}+))                  {printf("Error at line %d, column %d: identifier \"%s\"\n must begin with a letter", currLine, currPos, yytext); exit(2);}
+({DIGIT}|"_")({LETTER}|{DIGIT}|"_")*               {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext); exit(2);}
 
 
 %%
